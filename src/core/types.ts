@@ -13,7 +13,6 @@ export type ViewType = 'VStack' | 'HStack' | 'ZStack' | 'Text' | 'Frame' | 'Circ
 export interface ViewDimensions {
     width: number;
     height: number;
-    // In a real engine, we'd have alignment guides here
 }
 
 export interface LayoutNode {
@@ -21,13 +20,20 @@ export interface LayoutNode {
     type: ViewType;
     children: LayoutNode[];
 
-    // Properties specific to types
+    // Properties specifics
     text?: string;
     color?: string;
     spacing?: number; // for stacks
     padding?: number;
 
-    // The layout Logic
-    sizeThatFits(proposal: ProposedSize): Size;
-    placeSubviews(inBounds: Size): void;
+    // Layout Props (Fixed frame etc)
+    width?: number | null;
+    height?: number | null;
+}
+
+export interface LayoutResult {
+    nodeId: string;
+    size: Size;
+    position: { x: number, y: number };
+    children: LayoutResult[];
 }
